@@ -1,60 +1,50 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MvcMovie.Data;                                                                      
+using ExamEmployee.Data;
 using System;
 using System.Linq;
-
-namespace MvcMovie.Models;
-
-public static class SeedData
+namespace ExamEmployee.Models
 {
-    public static void Initialize(IServiceProvider serviceProvider)
+    public static class SeedData
     {
-        using (var context = new MvcMovieContext(
-            serviceProvider.GetRequiredService<
-                DbContextOptions<MvcMovieContext>>()))
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            // Look for any movies.
-            if (context.Movie.Any())
+            using (var context = new ExamEmployeeContext(
+                serviceProvider.GetRequiredService<
+                    DbContextOptions<ExamEmployeeContext>>()))
             {
-                return;   // DB has been seeded
-            }
-            context.Movie.AddRange(
-                new Movie
+                // Look for any movies.
+                if (context.Employee.Any())
                 {
-                    Title = "When Harry Met Sally",
-                    ReleaseDate = DateTime.Parse("1989-2-12"),
-                    Genre = "Romantic Comedy",
-                    Price = 7.99M,
-                    Rating = "R"
-                },
-                new Movie
-                {
-                    Title = "Ghostbusters ",
-                    ReleaseDate = DateTime.Parse("1984-3-13"),
-                    Genre = "Comedy",
-                    Price = 8.99M,
-                    Rating = "R"
-                },
-                new Movie
-
-                {
-                    Title = "Ghostbusters 2",
-                    ReleaseDate = DateTime.Parse("1986-2-23"),
-                    Genre = "Comedy",
-                    Price = 9.99M,
-                    Rating = "R"
-                },
-                new Movie
-                {
-                    Title = "Rio Bravo",
-                    ReleaseDate = DateTime.Parse("1959-4-15"),
-                    Genre = "Western",
-                    Price = 3.99M,
-                    Rating = "R"
+                    return;   // DB has been seeded
                 }
-            );
-            context.SaveChanges();
+                context.Employee.AddRange(
+                    new Employee
+                    {
+                        Title = "Hiep",
+                        ReleaseDate = DateTime.Parse("1212-12-12"),
+                        Derpartment = "HR",
+                        Salary = 7.99M
+                    },
+                    new Employee
+                    {
+                        Title = "Hieu",
+                        ReleaseDate = DateTime.Parse("1111-11-11"),
+                        Derpartment = "SC",
+                        Salary = 7.99M
+                    },
+                    new Employee
+                    {
+                        Title = "Huy",
+                        ReleaseDate = DateTime.Parse("1989-2-12"),
+                        Derpartment = "LD",
+                        Salary = 7.99M
+                    }
+
+
+                );
+                context.SaveChanges();
+            }
         }
     }
 }
